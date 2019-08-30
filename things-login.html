@@ -235,15 +235,6 @@ Example:
       resource-url="settings/show_by_name"
       resource-action="show_by_name"
       last-response="{{onetimeTokenEnable}}"
-      on-things-ajax-response="_checkOnetimeTokenUrl"
-    >
-    </things-ajax>
-
-    <things-ajax
-      id="check-onetimetoken-url"
-      resource-url="settings/show_by_name"
-      resource-action="show_by_name"
-      last-response="{{onetimeTokenUrl}}"
     >
     </things-ajax>
 
@@ -251,7 +242,7 @@ Example:
       id="request-onetimetoken"
       method="POST"
       content-type="application/json"
-      resource-url=[[onetimeTokenUrl.value]]
+      resource-url="onetime_tokens/request_onetimetoken"
       on-things-ajax-response="_onetimeTokenLogin"
     >
     </things-ajax>
@@ -287,9 +278,7 @@ Example:
           action="{{action}}"
           content-type="[[contentType]]"
           method="[[method]]"
-          on-keydown="_keydownHandler"
           with-credentials>
-
         <div class="name-locale-container">
           <paper-input id="username" name="email" type="text" label="[[lUserId]]" value="{{username}}" pattern="[[usernameValidationPattern]]"
             error-message="[[usernameErrorMessage]]" required auto-validate autofocus tabindex='1'>
@@ -460,28 +449,6 @@ Example:
           computed: '_computeActionUrl(globals.baseUrl, loginPath)'
         },
         /**
-         * on keydown event, for after failed to login
-         ********
-         * @param  {String} event when keypress event fire
-         */
-        _keydownHandler: function(event){
-          var code = event.keyCode;
-          if (code == 9){
-            event.preventDefault();
-            var els = [].slice.call(this.querySelectorAll('input[tabindex], paper-button[tabindex]'));
-            var tabableEls = els.filter(function(el){
-              return el.tabIndex>=0
-            }).sort(function(el1,el2){
-              return el1.tabIndex-el2.tabIndex;
-            });
-            if(tabableEls.indexOf(event.target)+1>=tabableEls.length){
-              tabableEls[0].focus();
-            }else{
-              tabableEls[tabableEls.indexOf(event.target)+1].focus();
-            }
-          }
-        },
-        /**
          * login request content type
          ******
          * @type {Object}
@@ -550,15 +517,15 @@ Example:
           }
         },
         /**
-				 * 회원가입 필드 표시 여부
-				 * ********
-				 * @type: Boolean
-				 */
+         * 회원가입 필드 표시 여부
+         * ********
+         * @type: Boolean
+         */
          signupButtonShow: {
-				    type: Boolean,
-				    value: true,
-				    computed: '_computeSignupShow(signupButtonShowValue)'
-			    },
+            type: Boolean,
+            value: true,
+            computed: '_computeSignupShow(signupButtonShowValue)'
+          },
         /**
          * 로그인 성공 후 마지막에 접속했던 페이지로 이동할 지 여부
          * ****
@@ -787,19 +754,7 @@ Example:
           this.encryptedPassword = this.sha256(this.password);
 
           if (this.onetimeTokenEnable && this.onetimeTokenEnable.value == 'true') {
-            // OnetimeToken 사용시 URL 확인
-            if (this.onetimeTokenUrl && this.onetimeTokenUrl.value) {
-              this._requestOnetimeToken()
-            } else {
-              // OnetimeToken URL 설정 오류 메시지 : 예상치 못한 서버오류. 서벼연결이 끊어졌습니다. 관리자에게 문의하세요.
-              this.openInfoMsg({
-                type: 'info',
-                title: this.tUnexpectedServerError,
-                html: true,
-                text: '<br/><h3><span>' + this.eCommFailure + '</span><h3>',
-                showConfirmButton: true
-              });
-            }
+            this._requestOnetimeToken()
           } else {
             this.$.loginForm.submit()
           }
@@ -1013,25 +968,29 @@ Example:
         }
       },
       /**
-			 * things framework의 설정 값중 'user.login.signup.button.enable'에 해당되는 value를 조회
-			 * 하는 ajax를 호출
-			 */
+       * things framework의 설정 값중 'user.login.signup.button.enable'에 해당되는 value를 조회
+       * 하는 ajax를 호출
+       */
        _checkSignupButtonShow: function () {
-				var checkSignupAjax = this.$['check-signup-button-show'];
-				checkSignupAjax.params = {
-					name: 'user.login.signup.button.enable'
-				};
-				checkSignupAjax.generateRequest();
-			},
+        var checkSignupAjax = this.$['check-signup-button-show'];
+        checkSignupAjax.params = {
+          name: 'user.login.signup.button.enable'
+        };
+        checkSignupAjax.generateRequest();
+      },
       /**
-			 * 로그인 화면에서 회원가입 버튼 표시 여부를 결정
-			 * 환경설정의 'user.login.signup.button.enable'에 의해 결정됨
-			 * true => 회원가입 버튼 표시
-			 * false => 회원가입 버튼 표시 안함
-			 */
+       * 로그인 화면에서 회원가입 버튼 표시 여부를 결정
+       * 환경설정의 'user.login.signup.button.enable'에 의해 결정됨
+       * true => 회원가입 버튼 표시
+       * false => 회원가입 버튼 표시 안함
+       */
        _computeSignupShow(signupButtonShowValue){
-         console.log(signupButtonShowValue);
-				return JSON.parse(signupButtonShowValue.value);
+        if(signupButtonShowValue){
+          return JSON.parse(signupButtonShowValue.value);          
+        }else{
+          return true
+        }
+
       },
       /**
        * things framework의 설정 값중 'login.onetimetoken.enable'에 해당되는 value를 조회
@@ -1043,15 +1002,6 @@ Example:
           name: 'login.onetimetoken.enable'
         }
         checkOnetimeTokenAjax.generateRequest()
-      },
-      _checkOnetimeTokenUrl: function() {
-        if ( this.onetimeTokenEnable && this.onetimeTokenEnable.value == 'true' ) {
-          var checkOnetimeTokenUrlAjax = this.$['check-onetimetoken-url']
-          checkOnetimeTokenUrlAjax.params = {
-            name: 'login.onetimetoken.url'
-          }
-          checkOnetimeTokenUrlAjax.generateRequest()
-        }
       },
       /**
        * 서버에 OnetimeToken 을 요청하는 ajax 를 호출
@@ -1078,10 +1028,7 @@ Example:
           this.encryptedPassword =
             tArray[3] + pArray[0] + tArray[1] + pArray[2] + tArray[0] + pArray[3] + tArray[4] + pArray[1] + tArray[2]
         }
-        // console.log(this.encryptedPassword.substring(40, 48) + "-" + this.encryptedPassword.substring(20, 24) + "-" + this.encryptedPassword.substring(92, 96) + "-" + this.encryptedPassword.substring(0, 4) + "-" + this.encryptedPassword.substring(64, 76));
-        // console.log(this.encryptedPassword.substring(4, 20) + this.encryptedPassword.substring(76, 92) + this.encryptedPassword.substring(24, 40) + this.encryptedPassword.substring(48, 64));
         this.$.loginForm.submit()
-        // console.log(this.encryptedPassword);
       }
     });
   </script>
