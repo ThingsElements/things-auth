@@ -228,7 +228,24 @@ Example:
       resource-url="settings/show_by_name" 
       resource-action="show_by_name" 
       last-response="{{signupButtonShowValue}}">
-    </things-ajax>   
+    </things-ajax>
+
+    <things-ajax
+      id="check-onetimetoken"
+      resource-url="settings/show_by_name"
+      resource-action="show_by_name"
+      last-response="{{onetimeTokenEnable}}"
+    >
+    </things-ajax>
+
+    <things-ajax
+      id="request-onetimetoken"
+      method="POST"
+      content-type="application/json"
+      resource-url="onetime_tokens/request_onetimetoken"
+      on-things-ajax-response="_onetimeTokenLogin"
+    >
+    </things-ajax>
   
     <paper-dialog id="pwd-expired-dialog" modal>
       <things-password-expired></things-password-expired>
@@ -243,6 +260,8 @@ Example:
       <things-i18n-msg auto msgid="text.login_failure" msg="{{tLoginFailure}}" hidden>Login failure.</things-i18n-msg>
       <things-i18n-msg auto msgid="text.processing_msg" msg="{{tProcessing}}" hidden>Your Request is processing.</things-i18n-msg>
       <things-i18n-msg auto msgid="text.please_wait" msg="{{tPleaseWait}}" hidden>Please Wait.</things-i18n-msg>
+      <things-i18n-msg auto msgid="error.COMM-FAILURE" msg="{{eCommFailure}}" hidden>Please contact the administrator.</things-i18n-msg>
+      <things-i18n-msg auto msgid="text.unexpected_server_error" msg="{{tUnexpectedServerError}}" hidden>Unexpected Server Error.</things-i18n-msg>
 
       <span class="header">
         <strong>
@@ -259,9 +278,7 @@ Example:
           action="{{action}}"
           content-type="[[contentType]]"
           method="[[method]]"
-          on-keydown="_keydownHandler"
           with-credentials>
-
         <div class="name-locale-container">
           <paper-input id="username" name="email" type="text" label="[[lUserId]]" value="{{username}}" pattern="[[usernameValidationPattern]]"
             error-message="[[usernameErrorMessage]]" required auto-validate autofocus tabindex='1'>
@@ -432,28 +449,6 @@ Example:
           computed: '_computeActionUrl(globals.baseUrl, loginPath)'
         },
         /**
-         * on keydown event, for after failed to login
-         ********
-         * @param  {String} event when keypress event fire
-         */
-        _keydownHandler: function(event){
-          var code = event.keyCode;
-          if (code == 9){
-            event.preventDefault();
-            var els = [].slice.call(this.querySelectorAll('input[tabindex], paper-button[tabindex]'));
-            var tabableEls = els.filter(function(el){
-              return el.tabIndex>=0
-            }).sort(function(el1,el2){
-              return el1.tabIndex-el2.tabIndex;
-            });
-            if(tabableEls.indexOf(event.target)+1>=tabableEls.length){
-              tabableEls[0].focus();
-            }else{
-              tabableEls[tabableEls.indexOf(event.target)+1].focus();
-            }
-          }
-        },
-        /**
          * login request content type
          ******
          * @type {Object}
@@ -522,15 +517,15 @@ Example:
           }
         },
         /**
-				 * 회원가입 필드 표시 여부
-				 * ********
-				 * @type: Boolean
-				 */
+         * 회원가입 필드 표시 여부
+         * ********
+         * @type: Boolean
+         */
          signupButtonShow: {
-				    type: Boolean,
-				    value: true,
-				    computed: '_computeSignupShow(signupButtonShowValue)'
-			    },
+            type: Boolean,
+            value: true,
+            computed: '_computeSignupShow(signupButtonShowValue)'
+          },
         /**
          * 로그인 성공 후 마지막에 접속했던 페이지로 이동할 지 여부
          * ****
@@ -570,6 +565,7 @@ Example:
         }.bind(this));
         this._setCurrentLocale();
         this._checkSignupButtonShow();
+        this._checkOnetimeToken();
       },
 
       /**
@@ -756,7 +752,12 @@ Example:
           this.$.submitButton.disabled = true;
           // password encrypte
           this.encryptedPassword = this.sha256(this.password);
-          this.$.loginForm.submit();
+
+          if (this.onetimeTokenEnable && this.onetimeTokenEnable.value == 'true') {
+            this._requestOnetimeToken()
+          } else {
+            this.$.loginForm.submit()
+          }
         }
       },
 
@@ -967,26 +968,68 @@ Example:
         }
       },
       /**
-			 * things framework의 설정 값중 'user.login.signup.button.enable'에 해당되는 value를 조회
-			 * 하는 ajax를 호출
-			 */
+       * things framework의 설정 값중 'user.login.signup.button.enable'에 해당되는 value를 조회
+       * 하는 ajax를 호출
+       */
        _checkSignupButtonShow: function () {
-				var checkSignupAjax = this.$['check-signup-button-show'];
-				checkSignupAjax.params = {
-					name: 'user.login.signup.button.enable'
-				};
-				checkSignupAjax.generateRequest();
-			},
+        var checkSignupAjax = this.$['check-signup-button-show'];
+        checkSignupAjax.params = {
+          name: 'user.login.signup.button.enable'
+        };
+        checkSignupAjax.generateRequest();
+      },
       /**
-			 * 로그인 화면에서 회원가입 버튼 표시 여부를 결정
-			 * 환경설정의 'user.login.signup.button.enable'에 의해 결정됨
-			 * true => 회원가입 버튼 표시
-			 * false => 회원가입 버튼 표시 안함
-			 */
+       * 로그인 화면에서 회원가입 버튼 표시 여부를 결정
+       * 환경설정의 'user.login.signup.button.enable'에 의해 결정됨
+       * true => 회원가입 버튼 표시
+       * false => 회원가입 버튼 표시 안함
+       */
        _computeSignupShow(signupButtonShowValue){
-         console.log(signupButtonShowValue);
-				return JSON.parse(signupButtonShowValue.value);
-			}
+        if(signupButtonShowValue){
+          return JSON.parse(signupButtonShowValue.value);          
+        }else{
+          return true
+        }
+
+      },
+      /**
+       * things framework의 설정 값중 'login.onetimetoken.enable'에 해당되는 value를 조회
+       * 하는 ajax를 호출
+       */
+      _checkOnetimeToken: function() {
+        var checkOnetimeTokenAjax = this.$['check-onetimetoken']
+        checkOnetimeTokenAjax.params = {
+          name: 'login.onetimetoken.enable'
+        }
+        checkOnetimeTokenAjax.generateRequest()
+      },
+      /**
+       * 서버에 OnetimeToken 을 요청하는 ajax 를 호출
+       */
+      _requestOnetimeToken: function() {
+        var requestOnetimeTokenAjax = this.$['request-onetimetoken']
+        requestOnetimeTokenAjax.body = { user_id: this.username }
+        requestOnetimeTokenAjax.generateRequest()
+      },
+      /**
+       * OnetimeToken 을 사용할 경우 로그인 Submit 로직
+       */
+      _onetimeTokenLogin: function(event) {
+        // Jhs-03 : onetimeToken 과 password 를 조합하여 Submit
+        var onetimeTokenValue = event.detail.id
+        var pArray = [
+          this.encryptedPassword.substring(0, 16),
+          this.encryptedPassword.substring(16, 32),
+          this.encryptedPassword.substring(32, 48),
+          this.encryptedPassword.substring(48, 64)
+        ]
+        if (onetimeTokenValue) {
+          var tArray = onetimeTokenValue.split('-')
+          this.encryptedPassword =
+            tArray[3] + pArray[0] + tArray[1] + pArray[2] + tArray[0] + pArray[3] + tArray[4] + pArray[1] + tArray[2]
+        }
+        this.$.loginForm.submit()
+      }
     });
   </script>
 </dom-module>
