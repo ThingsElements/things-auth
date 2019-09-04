@@ -2,26 +2,25 @@
 @license
 Copyright © HatioLab Inc. All rights reserved.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html" />
 
-<link rel="import" href="../iron-input/iron-input.html">
-<link rel="import" href="../iron-form/iron-form.html">
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../gold-email-input/gold-email-input.html">
-<link rel="import" href="../things-global-behavior/things-global-behavior.html">
-<link rel="import" href="../things-msg-box-behavior/things-msg-box-behavior.html">
-<link rel="import" href="../things-i18n-msg/things-i18n-msg.html">
-<link rel="import" href="../things-id/things-encrypt-behavior.html">
+<link rel="import" href="../iron-input/iron-input.html" />
+<link rel="import" href="../iron-form/iron-form.html" />
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html" />
+<link rel="import" href="../paper-listbox/paper-listbox.html" />
+<link rel="import" href="../paper-item/paper-item.html" />
+<link rel="import" href="../paper-input/paper-input.html" />
+<link rel="import" href="../paper-button/paper-button.html" />
+<link rel="import" href="../paper-material/paper-material.html" />
+<link rel="import" href="../gold-email-input/gold-email-input.html" />
+<link rel="import" href="../things-global-behavior/things-global-behavior.html" />
+<link rel="import" href="../things-msg-box-behavior/things-msg-box-behavior.html" />
+<link rel="import" href="../things-i18n-msg/things-i18n-msg.html" />
+<link rel="import" href="../things-id/things-encrypt-behavior.html" />
 
-<link rel="import" href="./things-signup.html">
-<link rel="import" href="./things-password-init.html">
-<link rel="import" href="./things-request-active.html">
-
+<link rel="import" href="./things-signup.html" />
+<link rel="import" href="./things-password-init.html" />
+<link rel="import" href="./things-request-active.html" />
 
 <!--
 ## things-login
@@ -73,20 +72,20 @@ Example:
       :host {
         --color: green;
         display: block;
-        @apply(--things-home-image);
+        @apply (--things-home-image);
         background-image: var(--things-home-image-url);
         background-position: var(--things-home-image-position);
       }
 
-      @media screen and (max-width:999px) {
+      @media screen and (max-width: 999px) {
         :host {
-          @apply(--things-home-image-small);
-          margin: 90px 58px 0 58px !important
+          @apply (--things-home-image-small);
+          margin: 90px 58px 0 58px !important;
         }
       }
 
       paper-material {
-        @apply(--things-login);
+        @apply (--things-login);
       }
 
       .header {
@@ -100,7 +99,7 @@ Example:
       }
 
       .header:before {
-        content: "";
+        content: '';
         display: block;
         margin: auto;
         margin-top: -90px;
@@ -115,12 +114,12 @@ Example:
       }
 
       form {
-        @apply(--things-loose-padding);
+        @apply (--things-loose-padding);
         padding-top: 10px;
       }
 
       paper-button {
-        @apply(--things-login-link-button);
+        @apply (--things-login-link-button);
       }
 
       paper-button:hover {
@@ -128,11 +127,11 @@ Example:
       }
 
       .name-locale-container {
-        @apply(--layout-horizontal);
+        @apply (--layout-horizontal);
       }
 
       .name-locale-container paper-input {
-        @apply(--layout-flex);
+        @apply (--layout-flex);
       }
 
       .name-locale-container paper-dropdown-menu {
@@ -141,7 +140,7 @@ Example:
       }
 
       #submitButton {
-        @apply(--things-login-button);
+        @apply (--things-login-button);
       }
 
       #submitButton:hover {
@@ -158,23 +157,23 @@ Example:
       }
 
       div[prefix] {
-        margin: -4px 4px 0 0
+        margin: -4px 4px 0 0;
       }
 
       div[prefix] iron-icon {
         --iron-icon-height: 20px;
         --iron-icon-width: 20px;
-        opacity: .7;
+        opacity: 0.7;
         fill: var(--things-secondary-color);
       }
 
-      @media screen and (max-width:760px) {
+      @media screen and (max-width: 760px) {
         :host {
-          @apply(--things-home-image-small);
+          @apply (--things-home-image-small);
           margin: 0 !important;
         }
         paper-material {
-          @apply(--things-mobile-login);
+          @apply (--things-mobile-login);
         }
         paper-toolbar {
           display: none !important;
@@ -183,7 +182,7 @@ Example:
           padding: 0;
         }
         .header:before {
-          content: "var(--things-brand-name)";
+          content: 'var(--things-brand-name)';
           /*content: "Things-Board";*/
           background: none var(--things-secondary-color);
           margin: 0;
@@ -195,7 +194,7 @@ Example:
           line-height: 45px;
         }
         .header:after {
-          content: "";
+          content: '';
           background: url(/images/icon-mobile-brand.png) 50% 60% no-repeat;
           background-size: 200px auto;
           display: block;
@@ -204,7 +203,7 @@ Example:
           margin: 0;
         }
         .header strong {
-          display: none
+          display: none;
         }
         .extra-links {
           font-size: 13px;
@@ -219,25 +218,42 @@ Example:
       }
     </style>
 
-    <things-ajax id="extend-pwd-ajax" resource-url="users/change_pass_later/:id" resource-id="[[user.id]]" content-type="application/json"
-      method="POST">
+    <things-ajax
+      id="extend-pwd-ajax"
+      resource-url="users/change_pass_later/:id"
+      resource-id="[[user.id]]"
+      content-type="application/json"
+      method="POST"
+    >
     </things-ajax>
 
-    <things-ajax 
-      id="check-signup-button-show"  
-      resource-url="settings/show_by_name" 
-      resource-action="show_by_name" 
-      last-response="{{signupButtonShowValue}}">
+    <things-ajax id="sec-login-info-show" resource-url="login_histories"> </things-ajax>
+
+    <things-ajax
+      id="last-login-info-enabled"
+      resource-url="settings/show_by_name?name=security.show.last.login.enabled"
+      resource-action="show_by_name"
+      last-response="{{ lastLoginInfoEnabled }}"
+      auto
+    >
+    </things-ajax>
+
+    <things-ajax
+      id="check-signup-button-show"
+      resource-url="settings/show_by_name"
+      resource-action="show_by_name"
+      last-response="{{ signupButtonShowValue }}"
+    >
     </things-ajax>
 
     <things-ajax
       id="check-onetimetoken"
       resource-url="settings/show_by_name"
       resource-action="show_by_name"
-      last-response="{{onetimeTokenEnable}}"
+      last-response="{{ onetimeTokenEnable }}"
     >
     </things-ajax>
-
+    <!-- prettier-ignore-attribute on-things-ajax-response -->
     <things-ajax
       id="request-onetimetoken"
       method="POST"
@@ -246,22 +262,30 @@ Example:
       on-things-ajax-response="_onetimeTokenLogin"
     >
     </things-ajax>
-  
+
     <paper-dialog id="pwd-expired-dialog" modal>
       <things-password-expired></things-password-expired>
     </paper-dialog>
-
+    <!-- prettier-ignore-attribute on-keypress -->
     <paper-material elevation="1" on-keypress="_keypressHandler">
-      <things-i18n-msg auto msgid="label.id" msg="{{lUserId}}" hidden>ID</things-i18n-msg>
-      <things-i18n-msg auto msgid="label.password" msg="{{lPassword}}" hidden>Password</things-i18n-msg>
-      <things-i18n-msg auto msgid="label.sign_up" msg="{{lSignUp}}" hidden>Sign Up</things-i18n-msg>
-      <things-i18n-msg auto msgid="label.reset_password" msg="{{lResetPass}}" hidden>Reset Password</things-i18n-msg>
-      <things-i18n-msg auto msgid="label.active_request" msg="{{lRequestActive}}" hidden>Active Request</things-i18n-msg>
-      <things-i18n-msg auto msgid="text.login_failure" msg="{{tLoginFailure}}" hidden>Login failure.</things-i18n-msg>
-      <things-i18n-msg auto msgid="text.processing_msg" msg="{{tProcessing}}" hidden>Your Request is processing.</things-i18n-msg>
-      <things-i18n-msg auto msgid="text.please_wait" msg="{{tPleaseWait}}" hidden>Please Wait.</things-i18n-msg>
-      <things-i18n-msg auto msgid="error.COMM-FAILURE" msg="{{eCommFailure}}" hidden>Please contact the administrator.</things-i18n-msg>
-      <things-i18n-msg auto msgid="text.unexpected_server_error" msg="{{tUnexpectedServerError}}" hidden>Unexpected Server Error.</things-i18n-msg>
+      <things-i18n-msg auto msgid="label.id" msg="{{ lUserId }}" hidden>ID</things-i18n-msg>
+      <things-i18n-msg auto msgid="label.password" msg="{{ lPassword }}" hidden>Password</things-i18n-msg>
+      <things-i18n-msg auto msgid="label.sign_up" msg="{{ lSignUp }}" hidden>Sign Up</things-i18n-msg>
+      <things-i18n-msg auto msgid="label.reset_password" msg="{{ lResetPass }}" hidden>Reset Password</things-i18n-msg>
+      <things-i18n-msg auto msgid="label.active_request" msg="{{ lRequestActive }}" hidden
+        >Active Request</things-i18n-msg
+      >
+      <things-i18n-msg auto msgid="text.login_failure" msg="{{ tLoginFailure }}" hidden>Login failure.</things-i18n-msg>
+      <things-i18n-msg auto msgid="text.processing_msg" msg="{{ tProcessing }}" hidden
+        >Your Request is processing.</things-i18n-msg
+      >
+      <things-i18n-msg auto msgid="text.please_wait" msg="{{ tPleaseWait }}" hidden>Please Wait.</things-i18n-msg>
+      <things-i18n-msg auto msgid="error.COMM-FAILURE" msg="{{ eCommFailure }}" hidden
+        >Please contact the administrator.</things-i18n-msg
+      >
+      <things-i18n-msg auto msgid="text.unexpected_server_error" msg="{{ tUnexpectedServerError }}" hidden
+        >Unexpected Server Error.</things-i18n-msg
+      >
 
       <span class="header">
         <strong>
@@ -269,19 +293,30 @@ Example:
         </strong>
       </span>
 
-
-        <form
-          is="iron-form"
-          id="loginForm"
-          headers="[[headers]]"
-          login-path="[[loginPath]]"
-          action="{{action}}"
-          content-type="[[contentType]]"
-          method="[[method]]"
-          with-credentials>
+      <form
+        is="iron-form"
+        id="loginForm"
+        headers="[[headers]]"
+        login-path="[[loginPath]]"
+        action="{{ action }}"
+        content-type="[[contentType]]"
+        method="[[method]]"
+        with-credentials
+      >
         <div class="name-locale-container">
-          <paper-input id="username" name="email" type="text" label="[[lUserId]]" value="{{username}}" pattern="[[usernameValidationPattern]]"
-            error-message="[[usernameErrorMessage]]" required auto-validate autofocus tabindex='1'>
+          <paper-input
+            id="username"
+            name="email"
+            type="text"
+            label="[[lUserId]]"
+            value="{{ username }}"
+            pattern="[[usernameValidationPattern]]"
+            error-message="[[usernameErrorMessage]]"
+            required
+            auto-validate
+            autofocus
+            tabindex="1"
+          >
             <div prefix>
               <iron-icon icon="icons:account-circle" slot="prefix"></iron-icon>
             </div>
@@ -296,28 +331,40 @@ Example:
           </paper-dropdown-menu>
         </div>
 
-        <paper-input id="password" type="password" label="[[lPassword]]" value="{{password}}" pattern="[[passwordValidationPattern]]"
-          error-message="[[passwordErrorMessage]]" required auto-validate tabindex='2'>
+        <paper-input
+          id="password"
+          type="password"
+          label="[[lPassword]]"
+          value="{{ password }}"
+          pattern="[[passwordValidationPattern]]"
+          error-message="[[passwordErrorMessage]]"
+          required
+          auto-validate
+          tabindex="2"
+        >
           <div prefix>
             <iron-icon icon="icons:lock-open" slot="prefix"></iron-icon>
           </div>
         </paper-input>
 
-        <input name="password" type="password" hidden value="{{encryptedPassword}}" />
+        <input name="password" type="password" hidden value="{{ encryptedPassword }}" />
 
         <div>
-          <paper-button id="submitButton" raised on-tap="_submitHandler" tabindex='3'>
+          <!-- prettier-ignore-attribute on-tap -->
+          <paper-button id="submitButton" raised on-tap="_submitHandler" tabindex="3">
             <things-i18n-msg auto msgid="button.sign_in">Sign In</things-i18n-msg>
           </paper-button>
-          <template is="dom-if" if="{{signupButtonShow}}">
+          <template is="dom-if" if="{{ signupButtonShow }}">
+            <!-- prettier-ignore-attribute on-tap -->
             <paper-button on-tap="_onSignupTap" class="extra-links">
               <things-i18n-msg auto msgid="button.sign_up">Sign Up</things-i18n-msg>
             </paper-button>
           </template>
+          <!-- prettier-ignore-attribute on-tap -->
           <paper-button on-tap="_onRequestAccountActivateTap" class="extra-links">
             <things-i18n-msg auto msgid="button.request_active">Request Active</things-i18n-msg>
           </paper-button>
-
+          <!-- prettier-ignore-attribute on-tap -->
           <paper-button on-tap="_onRequestPasswordResetTap" class="extra-links">
             <things-i18n-msg auto msgid="button.reset_password">Reset Password</things-i18n-msg>
           </paper-button>
@@ -329,7 +376,6 @@ Example:
 
   <script>
     Polymer({
-
       is: 'things-login',
 
       properties: {
@@ -368,17 +414,21 @@ Example:
          */
         locales: {
           type: Array,
-          value: function () {
-            return [{
-              key: 'en-US',
-              description: 'English'
-            }, {
-              key: 'ko-KR',
-              description: '한글'
-            }, {
-              key: 'zh-CN',
-              description: '中文'
-            }];
+          value: function() {
+            return [
+              {
+                key: 'en-US',
+                description: 'English'
+              },
+              {
+                key: 'ko-KR',
+                description: '한글'
+              },
+              {
+                key: 'zh-CN',
+                description: '中文'
+              }
+            ]
           }
         },
 
@@ -510,8 +560,8 @@ Example:
          */
         redirectCallback: {
           type: Object,
-          value: function () {
-            return function () {
+          value: function() {
+            return function() {
               return true
             }
           }
@@ -521,11 +571,11 @@ Example:
          * ********
          * @type: Boolean
          */
-         signupButtonShow: {
-            type: Boolean,
-            value: true,
-            computed: '_computeSignupShow(signupButtonShowValue)'
-          },
+        signupButtonShow: {
+          type: Boolean,
+          value: true,
+          computed: '_computeSignupShow(signupButtonShowValue)'
+        },
         /**
          * 로그인 성공 후 마지막에 접속했던 페이지로 이동할 지 여부
          * ****
@@ -537,48 +587,69 @@ Example:
           value: false
         },
         /**
+         * 로그인 성공 후 직전 로그인 정보 표시 여부
+         * ****
+         * @type {Boolean}
+         * @default false
+         */
+        _showLastLoginEnabled: {
+          type: Boolean,
+          value: false,
+          computed: '_computeShowLoginInfo(lastLoginInfoEnabled)'
+        }
+        /**
          * 로그인 성공시 fire
          *
          * @event things-login-succeed
          */
       },
-      behaviors: [
-        Things.GlobalBehavior,
-        Things.MsgBoxBehavior,
-        Things.EncryptBehavior
-      ],
+      behaviors: [Things.GlobalBehavior, Things.MsgBoxBehavior, Things.EncryptBehavior],
 
       listeners: {
         'locale-list.selected-changed': '_localeValueChanged',
         'iron-form-submit': '_afterFormSubmit',
         'iron-form-response': '_successResponse',
         'iron-form-error': '_failureResponse',
-        'extend-pwd-ajax.things-ajax-response': '_extendPwdResponsed'
+        'extend-pwd-ajax.things-ajax-response': '_extendPwdResponsed',
+        'sec-login-info-show.things-ajax-response': '_onLastLoginInfoResponsed'
       },
 
-      observers: [
-        '_userInfoChanged(globals.user)'
-      ],
-      ready: function () {
-        document.addEventListener('things-expired-password-changed', function () {
-          this._afterExpiredPwdChanged();
-        }.bind(this));
-        this._setCurrentLocale();
-        this._checkSignupButtonShow();
-        this._checkOnetimeToken();
+      observers: ['_userInfoChanged(globals.user)'],
+      ready: function() {
+        document.addEventListener(
+          'things-expired-password-changed',
+          function() {
+            this._afterExpiredPwdChanged()
+          }.bind(this)
+        )
+        document.addEventListener(
+          'things-login-succeed',
+          function() {
+            this._getLastLoginInfo()
+          }.bind(this)
+        )
+        this._setCurrentLocale()
+        this._checkSignupButtonShow()
+        this._checkOnetimeToken()
+        document.dispatchEvent(
+          new CustomEvent('disable-security-message', {
+            bubbles: true,
+            composed: true
+          })
+        )
       },
 
       /**
        * local storage에 저장되어 있는 현재 locale 정보를 통해
        * combo box의 값을 결정함
        */
-      _setCurrentLocale: function () {
-        var currentLocale = JSON.parse(localStorage.getItem('setting.locale'));
-        var localeList = this.$['locale-list'];
+      _setCurrentLocale: function() {
+        var currentLocale = JSON.parse(localStorage.getItem('setting.locale'))
+        var localeList = this.$['locale-list']
         if (currentLocale !== null) {
-          this.locales.forEach(function (locale, index) {
+          this.locales.forEach(function(locale, index) {
             if (locale.key === currentLocale) {
-              localeList.selected = index;
+              localeList.selected = index
             }
           })
         }
@@ -588,16 +659,16 @@ Example:
        * locale-list의 selected-chaged event handler
        * locale 리스트의 선택된 값이 변경될 경우 locale을 적용함
        */
-      _localeValueChanged: function (event) {
-        var localeIdx = event.detail.value;
-        this.set('globals.locale', this.locales[localeIdx].key);
+      _localeValueChanged: function(event) {
+        var localeIdx = event.detail.value
+        this.set('globals.locale', this.locales[localeIdx].key)
       },
 
       /**
        * user info 변경시 호출되며 사용자 정보를 통해 패스워드가 만료 되었는지를 판단함
        */
-      _userInfoChanged: function (userInfo) {
-        if (userInfo) this.isUserStatusInvalid(userInfo);
+      _userInfoChanged: function(userInfo) {
+        if (userInfo) this.isUserStatusInvalid(userInfo)
       },
 
       /**
@@ -607,8 +678,8 @@ Example:
        * @param  {String} url request를 요청한 Rest url Ex:) login
        * @return {String} Full url --> globals.baseUrl/url
        */
-      _computeActionUrl: function (baseUrl, url) {
-        return baseUrl + '/' + url;
+      _computeActionUrl: function(baseUrl, url) {
+        return baseUrl + '/' + url
       },
 
       /**
@@ -617,10 +688,10 @@ Example:
        * BrandName으로 변경
        * @param  {String} brandName [description]
        */
-      _onBrandNameChanged: function (brandName) {
+      _onBrandNameChanged: function(brandName) {
         if (brandName) {
-          this.customStyle['--things-brand-name'] = '"' + brandName + '"';
-          this.updateStyles();
+          this.customStyle['--things-brand-name'] = '"' + brandName + '"'
+          this.updateStyles()
         }
       },
 
@@ -638,21 +709,21 @@ Example:
        *****
        * @param  {String} event signup button tap event
        */
-      _onSignupTap: function (event) {
-        var signup = document.createElement('things-signup');
-        signup.title = this.lSignUp;
+      _onSignupTap: function(event) {
+        var signup = document.createElement('things-signup')
+        signup.title = this.lSignUp
         signup.actionUrl = 'request_auths/account/register/request'
-        signup.method = 'POST';
-        signup.addEventListener('things-signup-success', function (event) {
+        signup.method = 'POST'
+        signup.addEventListener('things-signup-success', function(event) {
           var event = new CustomEvent('things-close-popup-view', {
             detail: this
-          });
-          document.dispatchEvent(event);
-        });
+          })
+          document.dispatchEvent(event)
+        })
 
-        signup.addEventListener('things-signup-failure', function (event) {
-          var response = event.detail.request.xhr.response;
-          this.openResponseError(response);
+        signup.addEventListener('things-signup-failure', function(event) {
+          var response = event.detail.request.xhr.response
+          this.openResponseError(response)
         })
 
         var event = new CustomEvent('things-open-popup-view', {
@@ -661,9 +732,9 @@ Example:
             modal: true,
             openCallback: null
           }
-        });
+        })
 
-        document.dispatchEvent(event);
+        document.dispatchEvent(event)
       },
 
       /**
@@ -671,22 +742,22 @@ Example:
        *****
        * @param  {String} event request active tap event
        */
-      _onRequestAccountActivateTap: function (event) {
-        var requestActive = document.createElement('things-request-active');
-        requestActive.title = this.lRequestActive;
-        requestActive.actionUrl = 'request_auths/account/activate/request';
-        requestActive.method = 'POST';
+      _onRequestAccountActivateTap: function(event) {
+        var requestActive = document.createElement('things-request-active')
+        requestActive.title = this.lRequestActive
+        requestActive.actionUrl = 'request_auths/account/activate/request'
+        requestActive.method = 'POST'
 
-        requestActive.addEventListener('things-request-active-success', function (event) {
+        requestActive.addEventListener('things-request-active-success', function(event) {
           var event = new CustomEvent('things-close-popup-view', {
             detail: this
-          });
-          document.dispatchEvent(event);
-        });
+          })
+          document.dispatchEvent(event)
+        })
 
-        requestActive.addEventListener('things-request-active-failure', function (event) {
-          var response = event.detail.request.xhr.response;
-          this.openResponseError(response);
+        requestActive.addEventListener('things-request-active-failure', function(event) {
+          var response = event.detail.request.xhr.response
+          this.openResponseError(response)
         })
 
         var event = new CustomEvent('things-open-popup-view', {
@@ -695,9 +766,9 @@ Example:
             modal: true,
             openCallback: null
           }
-        });
+        })
 
-        document.dispatchEvent(event);
+        document.dispatchEvent(event)
       },
 
       /**
@@ -705,23 +776,23 @@ Example:
        *****
        * @param  {String} event Reset Password tap event
        */
-      _onRequestPasswordResetTap: function (event) {
-        var pwInit = document.createElement('things-password-init');
-        pwInit.title = this.lResetPass;
-        pwInit.actionUrl = 'request_auths/password/reset/request';
-        pwInit.method = 'POST';
+      _onRequestPasswordResetTap: function(event) {
+        var pwInit = document.createElement('things-password-init')
+        pwInit.title = this.lResetPass
+        pwInit.actionUrl = 'request_auths/password/reset/request'
+        pwInit.method = 'POST'
 
-        pwInit.addEventListener('things-password-init-success', function (event) {
+        pwInit.addEventListener('things-password-init-success', function(event) {
           var event = new CustomEvent('things-close-popup-view', {
             detail: this
-          });
-          document.dispatchEvent(event);
-        });
+          })
+          document.dispatchEvent(event)
+        })
 
-        pwInit.addEventListener('things-password-init-failure', function (event) {
-          var response = event.detail.request.xhr.response;
-          this.openResponseError(response);
-        });
+        pwInit.addEventListener('things-password-init-failure', function(event) {
+          var response = event.detail.request.xhr.response
+          this.openResponseError(response)
+        })
 
         var event = new CustomEvent('things-open-popup-view', {
           detail: {
@@ -729,9 +800,9 @@ Example:
             modal: true,
             openCallback: null
           }
-        });
+        })
 
-        document.dispatchEvent(event);
+        document.dispatchEvent(event)
       },
 
       /**
@@ -739,7 +810,7 @@ Example:
        ********
        * @param  {String} event Sign In tap event
        */
-      _submitHandler: function (event) {
+      _submitHandler: function(event) {
         if (this.$.loginForm.validate()) {
           this.openInfoMsg({
             type: 'info',
@@ -747,11 +818,11 @@ Example:
             html: true,
             text: '<br/><h3><span>' + this.tPleaseWait + '</span><h3>',
             showConfirmButton: false
-          });
+          })
 
-          this.$.submitButton.disabled = true;
+          this.$.submitButton.disabled = true
           // password encrypte
-          this.encryptedPassword = this.sha256(this.password);
+          this.encryptedPassword = this.sha256(this.password)
 
           if (this.onetimeTokenEnable && this.onetimeTokenEnable.value == 'true') {
             this._requestOnetimeToken()
@@ -766,10 +837,10 @@ Example:
        ********
        * @param  {String} event when keypress event fire
        */
-      _keypressHandler: function (event) {
-        var code = event.keyCode;
+      _keypressHandler: function(event) {
+        var code = event.keyCode
         if (code == 13) {
-          this._submitHandler(event);
+          this._submitHandler(event)
         }
       },
 
@@ -778,8 +849,8 @@ Example:
        ********
        * @param  {String} event when iron-form-submit fire
        */
-      _afterFormSubmit: function (event) {
-        this.$.submitButton.disabled = false;
+      _afterFormSubmit: function(event) {
+        this.$.submitButton.disabled = false
       },
 
       /**
@@ -805,27 +876,27 @@ Example:
        *****
        * @param  {String} event when iron-form-response fire
        */
-      _successResponse: function (event) {
-        this.$.submitButton.disabled = false;
-        var user = event.detail.__data__.response;
+      _successResponse: function(event) {
+        this.$.submitButton.disabled = false
+        var user = event.detail.__data__.response
 
         // 1. save user information
         if (user) {
-          this.set('globals.user', user);
+          this.set('globals.user', user)
           if (user.stomp_url) {
-            this.set('globals.wsUrl', user.stomp_url);
+            this.set('globals.wsUrl', user.stomp_url)
           }
         }
-        this.customStyle['--things-background-image'] = 'url(/images/bg-rail.png), url(/images/bg-blue.png)';
+        this.customStyle['--things-background-image'] = 'url(/images/bg-rail.png), url(/images/bg-blue.png)'
         // 2. reset login form
-        this.$.loginForm.reset();
-        this.encryptedPassword = '';
+        this.$.loginForm.reset()
+        this.encryptedPassword = ''
         // 3. fire event
-        this.fire('things-login-succeed');
+        this.fire('things-login-succeed')
 
-        if (!this.isUserStatusInvalid(user)) {;
+        if (!this.isUserStatusInvalid(user)) {
           // 4. redirect
-          this._redirectAfterLogin(user);
+          this._redirectAfterLogin(user)
         }
       },
 
@@ -834,64 +905,68 @@ Example:
        * @param  Object  user 사용자 정보
        * @return Boolean 비밀번호 만료 여부
        */
-      isUserStatusInvalid: function (user) {
+      isUserStatusInvalid: function(user) {
         // 사용자의 계정상태가 비밀번호 변경 상태 일때의 처리
         // password_chage => 비밀번호 연장이 불가하며 반드시 변경해야 로그인이 가능한 경우
         // password_expired => 비밀번호 연장이 가능하여 비밀번호 변경, 연장 후 로그인이 가능한 경우
         if (user.status == 'password_change' || user.status == 'password_expired') {
-          var me = this;
-          var title = '';
-          var text = '';
-          var pwdExtendButton = false;
+          var me = this
+          var title = ''
+          var text = ''
+          var pwdExtendButton = false
 
           // status에 따라 alert 타이틀과 메시지를 초기화
           switch (user.status) {
             case 'password_change':
-              title = Things.DataGlobal.t('button.password_change');
-              text = Things.DataGlobal.t('text.password_need_change');
-              break;
+              title = Things.DataGlobal.t('button.password_change')
+              text = Things.DataGlobal.t('text.password_need_change')
+              break
 
             case 'password_expired':
-              title = Things.DataGlobal.t('label.password_expired');
-              text = Things.DataGlobal.t('text.password_expired');
-              pwdExtendButton = true;
-              break;
+              title = Things.DataGlobal.t('label.password_expired')
+              text = Things.DataGlobal.t('text.password_expired')
+              pwdExtendButton = true
+              break
           }
 
-          this.openConfirmMsg({
-            type: 'info',
-            title: title,
-            text: text,
-            showCancelButton: pwdExtendButton,
-            cancelButtonText: Things.DataGlobal.t('button.extend'),
-            confirmButtonText: Things.DataGlobal.t('button.password_change'),
-            allowEscapeKey: false
-          }, function () {
-            var changePwdView = document.createElement('things-change-password');
+          this.openConfirmMsg(
+            {
+              type: 'info',
+              title: title,
+              text: text,
+              showCancelButton: pwdExtendButton,
+              cancelButtonText: Things.DataGlobal.t('button.extend'),
+              confirmButtonText: Things.DataGlobal.t('button.password_change'),
+              allowEscapeKey: false
+            },
+            function() {
+              var changePwdView = document.createElement('things-change-password')
 
-            me.fire('things-open-popup-view', {
-              view: changePwdView,
-              modal: true,
-              openCallback: function () {
-                changePwdView.title = Things.DataGlobal.t('button.change_password');
-                changePwdView.actionUrl = 'users/change_pass/' + user.id;
-                changePwdView.method = 'POST';
-                changePwdView.currentUserInfo = user;
-              },
-              closeCallback: function () {
-                var logoutElement = document.querySelector('things-logout');
-                logoutElement.logout();
-              }
-            })
-          }, function () {
-            var extendPwdAjax = me.$['extend-pwd-ajax'];
-            extendPwdAjax.resourceId = Things.DataGlobal.user.id;
-            extendPwdAjax.generateRequest();
-          });
+              me.fire('things-open-popup-view', {
+                view: changePwdView,
+                modal: true,
+                openCallback: function() {
+                  changePwdView.title = Things.DataGlobal.t('button.change_password')
+                  changePwdView.actionUrl = 'users/change_pass/' + user.id
+                  changePwdView.method = 'POST'
+                  changePwdView.currentUserInfo = user
+                },
+                closeCallback: function() {
+                  var logoutElement = document.querySelector('things-logout')
+                  logoutElement.logout()
+                }
+              })
+            },
+            function() {
+              var extendPwdAjax = me.$['extend-pwd-ajax']
+              extendPwdAjax.resourceId = Things.DataGlobal.user.id
+              extendPwdAjax.generateRequest()
+            }
+          )
 
-          return true;
+          return true
         } else {
-          return false;
+          return false
         }
       },
 
@@ -899,19 +974,19 @@ Example:
        * 비밀번호 변경기한 연장 ajax의 response listener
        * things-expired-password-chagned 이벤트 호출
        */
-      _extendPwdResponsed: function (event) {
-        this.fire('things-expired-password-changed');
+      _extendPwdResponsed: function(event) {
+        this.fire('things-expired-password-changed')
       },
 
       /**
        * things-expired-password-changed event listener
        * global 변수와 localstorage를 초기화 후 browser reload
        */
-      _afterExpiredPwdChanged: function () {
-        var user = Things.DataGlobal.user;
-        delete user.status;
-        localStorage['setting.user'] = JSON.stringify(user);
-        this._redirectAfterLogin(user);
+      _afterExpiredPwdChanged: function() {
+        var user = Things.DataGlobal.user
+        delete user.status
+        localStorage['setting.user'] = JSON.stringify(user)
+        this._redirectAfterLogin(user)
       },
 
       /**
@@ -920,12 +995,12 @@ Example:
        * @param {Function} callback redirectCallback
        * @return {Boolean} redirectCallback을 적용한 값을 리턴, 없을 경우는 true
        */
-      _applyCallback: function (callback) {
+      _applyCallback: function(callback) {
         if (callback && typeof callback == 'function') {
-          return callback.apply(this);
+          return callback.apply(this)
         }
 
-        return true;
+        return true
       },
 
       /**
@@ -933,22 +1008,20 @@ Example:
        *******
        * @param  {Object} user 사용자 정보
        */
-      _redirectAfterLogin: function (user) {
+      _redirectAfterLogin: function(user) {
         if (this._applyCallback(this.redirectCallback)) {
-
           if (this.useOiScreen && user.operator_flag === true) {
-            location.href = this.oiScreenPath;
-
+            location.href = this.oiScreenPath
           } else {
-            var redirectURL = '/';
+            var redirectURL = '/'
             if (this.redirectToLastPageWhenLoggedIn) {
-              redirectURL = window.sessionStorage.getItem('lastURL') || '/';
+              redirectURL = window.sessionStorage.getItem('lastURL') || '/'
             }
 
-            page(redirectURL);
-            location.reload(true);
+            page(redirectURL)
+            location.reload(true)
           }
-        };
+        }
       },
 
       /**
@@ -956,27 +1029,27 @@ Example:
        *******
        * @param {Object} event iron-form-error
        */
-      _failureResponse: function (event) {
-        this.$.submitButton.disabled = false;
+      _failureResponse: function(event) {
+        this.$.submitButton.disabled = false
         var response = event.detail.request.xhr.response
 
         if (response) {
-          this.openResponseError(response);
+          this.openResponseError(response)
         } else {
-          response = event.detail.request;
-          this.openUnkownError(response);
+          response = event.detail.request
+          this.openUnkownError(response)
         }
       },
       /**
        * things framework의 설정 값중 'user.login.signup.button.enable'에 해당되는 value를 조회
        * 하는 ajax를 호출
        */
-       _checkSignupButtonShow: function () {
-        var checkSignupAjax = this.$['check-signup-button-show'];
+      _checkSignupButtonShow: function() {
+        var checkSignupAjax = this.$['check-signup-button-show']
         checkSignupAjax.params = {
           name: 'user.login.signup.button.enable'
-        };
-        checkSignupAjax.generateRequest();
+        }
+        checkSignupAjax.generateRequest()
       },
       /**
        * 로그인 화면에서 회원가입 버튼 표시 여부를 결정
@@ -984,13 +1057,12 @@ Example:
        * true => 회원가입 버튼 표시
        * false => 회원가입 버튼 표시 안함
        */
-       _computeSignupShow(signupButtonShowValue){
-        if(signupButtonShowValue){
-          return JSON.parse(signupButtonShowValue.value);          
-        }else{
+      _computeSignupShow(signupButtonShowValue) {
+        if (signupButtonShowValue) {
+          return JSON.parse(signupButtonShowValue.value)
+        } else {
           return true
         }
-
       },
       /**
        * things framework의 설정 값중 'login.onetimetoken.enable'에 해당되는 value를 조회
@@ -1029,7 +1101,79 @@ Example:
             tArray[3] + pArray[0] + tArray[1] + pArray[2] + tArray[0] + pArray[3] + tArray[4] + pArray[1] + tArray[2]
         }
         this.$.loginForm.submit()
+      },
+
+      _getLoginInfoAjax: function() {
+        return this.$['sec-login-info-show']
+      },
+
+      _getLastLoginInfo: function() {
+        var userInfo = Things.DataGlobal.user
+        var loginInfoAjax = this._getLoginInfoAjax()
+        loginInfoAjax.params = {
+          sort: JSON.stringify([
+            {
+              field: 'created_at',
+              ascending: false
+            }
+          ]),
+          query: JSON.stringify([
+            {
+              name: 'access_user_id',
+              value: userInfo.login
+            },
+            {
+              name: 'success',
+              value: true
+            }
+          ]),
+          limit: 2
+        }
+
+        loginInfoAjax.generateRequest()
+      },
+
+      _onLastLoginInfoResponsed: function(event) {
+        if (event.detail.items.length == 2) {
+          var lastLoginInfo = event.detail.items[1]
+
+          this._showLastLoginInfoPopup(lastLoginInfo)
+        }
+      },
+
+      _showLastLoginInfoPopup: function(lastLoginInfo) {
+        var self = this
+        var timeoutSec = 3
+        if (this._showLastLoginEnabled) {
+          this.openConfirmMsg({
+            type: 'info',
+            title: Things.DataGlobal.t('title.last_login_info'),
+            text:
+              '<div>' +
+              Things.DataGlobal.t('text.last_logged_in_at_x', {
+                x: '<span style="font-weight: normal;">[ ' + lastLoginInfo.created_at + ' ]</span>'
+              }) +
+              '<br>' +
+              Things.DataGlobal.t('text.last_logged_in_from_x', {
+                x: '<span style="font-weight: normal;">[ ' + lastLoginInfo.access_ip + ' ]</span>'
+              }),
+            html: true,
+            showCancelButton: false,
+            showConfirmButton: true,
+            timer: timeoutSec * 1000
+          })
+        }
+      },
+
+      /**
+       * 직전 로그인 정보 표시여부를 결정
+       * things-framework의 'security.show.last.login.enabled'에 의해 결정됨
+       * true => 직전 로그인 정보를 표시함
+       * false => 직전 로그인 정보를 표시하지 않음
+       */
+      _computeShowLoginInfo: function(lastLoginInfoEnabled) {
+        return JSON.parse(lastLoginInfoEnabled.value)
       }
-    });
+    })
   </script>
 </dom-module>
