@@ -1,22 +1,13 @@
 {
   "name": "things-auth",
-  "version": "v2.2.23",
-  "authors": [
-    "Hatio Lab.  <heartyoh@hatiolab.com>"
-  ],
+  "version": "v2.2.24",
+  "authors": ["Hatio Lab.  <heartyoh@hatiolab.com>"],
   "description": "로그인, 로그아웃 페스워드 재설정, 활성화요청, 신규등록 요청을 위한 컴포넌트",
-  "keywords": [
-    "web-component",
-    "polymer",
-    "seed"
-  ],
+  "keywords": ["web-component", "polymer", "seed"],
   "main": "elements.html",
   "license": "http://license.hatiolab.com/EULA",
   "homepage": "http://elements.hatiolab.com/",
-  "ignore": [
-    "/.*",
-    "/test/"
-  ],
+  "ignore": ["/.*", "/test/"],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.2.0",
     "iron-input": "PolymerElements/iron-input#^1.0.10",
@@ -27,7 +18,7 @@
     "gold-email-input": "PolymerElements/gold-email-input#^1.0.7",
     "things-form": "ThingsElements/things-form",
     "things-i18n-msg": "ThingsElements/things-i18n-msg",
-    "things-id":"ThingsElements/things-id"
+    "things-id": "ThingsElements/things-id"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
